@@ -27,9 +27,9 @@ function saveToLocalStorage(event){
 
 function showNewUserOnScreen(user){
     const parentNode = document.getElementById('listOfUsers');
-    const childHTML = `<li id=${user._id}${user.email}> ${user.name} - ${user.email} 
-                      <button onclick=deleteUser('${user._id}')> Delete User
-                      <button onclick=EditUser('${user._id}','${user.name}')> Edit User
+    const childHTML = `<li id=${user._id}> ${user.name} - ${user.email} 
+                      <button onclick=deleteUser('${user._id}')> Delete User</button>
+                      <button onclick=EditUser('${user.email}','${user.name}','${user.phonenumber}','${user._id}')> Edit User</button>
                       </li>`
 
     parentNode.innerHTML = parentNode.innerHTML + childHTML; 
@@ -56,6 +56,14 @@ window.addEventListener('DOMContentLoaded', () => {
     // }
 })
 
+function EditUser(emailId, name, phonenumber, userId){
+    document.getElementById('emailId').value = emailId;
+    document.getElementById('username').value = name;
+    document.getElementById('phonenumber').value = phonenumber;
+
+    deleteUser(userId);
+
+}
 function deleteUser(userId){
     axios.delete(`https://crudcrud.com/api/668f6d1ae18646c1b41a4961864d9a99/AppoinmentData/${userId}`)
           .then((response) => {
