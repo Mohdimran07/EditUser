@@ -9,7 +9,7 @@ function saveToLocalStorage(event){
             email,
             phonenumber
         }
-        axios.post("https://crudcrud.com/api/d7b6b5927e6745d09201fd709626a695/AppoinmentData", obj)
+        axios.post("https://crudcrud.com/api/668f6d1ae18646c1b41a4961864d9a99/AppoinmentData", obj)
             .then((response) => {
                 showNewUserOnScreen(response.data)
                 console.log(response)
@@ -23,6 +23,8 @@ function saveToLocalStorage(event){
     
 }
 
+   
+
 function showNewUserOnScreen(user){
     const parentNode = document.getElementById('listOfUsers');
     const childHTML = `<li id=${user.email}> ${user.name} - ${user.email} 
@@ -31,6 +33,27 @@ function showNewUserOnScreen(user){
 
     parentNode.innerHTML = parentNode.innerHTML + childHTML; 
 }
+
+window.addEventListener('DOMContentLoaded', () => {
+    axios.get("https://crudcrud.com/api/668f6d1ae18646c1b41a4961864d9a99/AppoinmentData")
+         .then((response) => {
+             console.log(response)
+             for(var i = 0; i<response.data.length; i++){
+                showNewUserOnScreen(response.data[i])
+             }
+         })
+         .catch((err) => {
+             console.log(error);
+         })
+    // const localStorageObj = localStorage;
+    // const localStorageKeys = Object.keys(localStorageObj)
+
+    // for(var i=0; i<localStorageKeys.length; i++){
+    //     const key = localStorageKeys[i];
+    //     const userDetailsString = localStorageObj[key]
+    //     showNewUserOnScreen(userDetailsObj)
+    // }
+})
 
 function deleteUser(emailId){
     console.log(emailId)
